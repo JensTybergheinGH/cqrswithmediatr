@@ -23,7 +23,7 @@ namespace Customer.Service.Services
         }
 
 
-        public async  Task<CustomerDto> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+        public async Task<CustomerDto> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
             if (await _customerRepository.EmailExistAsync(request.Email))
             {
