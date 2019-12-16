@@ -13,19 +13,17 @@ namespace Customer.Service.Subcribers
 {
     public class CustomerDeletedHandler : INotificationHandler<CustomerDeletedEvent>
     {
-        private readonly ICustomerRepository _customerRepository;
         private readonly ILogger _logger;
 
-        public CustomerDeletedHandler(ICustomerRepository customerRepository, ILogger<CustomerCreatedHandler> logger)
+        public CustomerDeletedHandler(ILogger<CustomerCreatedHandler> logger)
         {
-            _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(customerRepository));
             _logger = logger;
         }
 
-        public async Task Handle(CustomerDeletedEvent notification, CancellationToken cancellationToken)
+        public Task Handle(CustomerDeletedEvent notification, CancellationToken cancellationToken)
         {
-            var customer = await _customerRepository.GetAsync(e => e.Id == notification.Id);
             _logger.LogInformation($"The customer with the name {notification.Name} was deleted");
+            return Task.CompletedTask;
         }
     }
 }
